@@ -1,12 +1,13 @@
 import openai
 import requests
 import base64
+import json
 
 import config
 
 my_openai_key = config.api_key
 
-def get_image_description(base64_image, followup_message=None):
+def get_image_description(base64_image, prompt_text, followup_message=None):
     print("Sending request to GPT-4 Vision API...")
     headers = {
         "Content-Type": "application/json",
@@ -21,7 +22,7 @@ def get_image_description(base64_image, followup_message=None):
                 "content": [
                     {
                         "type": "text",
-                        "text": "What’s in this image?"
+                        "text": prompt_text
                     },
                     {
                         "type": "image_url",
@@ -42,8 +43,17 @@ def encode_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
 
+def parse_prompt(prompt_file):
+    with open(prompt_file, 'r') as file:
+        file_content = file.read()
+    prompt_text = file_content.replace('\n', ' ')
+    return prompt_text
+
 if __name__ == "__main__":
-    ss = config.basedir + 'screenshots/image1.png'
+    ss = config.basedir + 'screenshots/image3.png'
     base64_image = encode_image(ss)
-    resp = get_image_description(base64_image)
-    print(resp)
+    prompt_text = parse_prompt("prompts/prompt2.txt")
+    resp = get_image_description(base64_image, prompt_text)
+    with open('resp3.json', 'w') as f: 
+        f.write(json.dumps(resp))
+    print(resp["choices"][0]["message"]["content"])
