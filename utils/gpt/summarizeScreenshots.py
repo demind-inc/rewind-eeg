@@ -13,7 +13,6 @@ def get_image_description(base64_image, prompt_text, followup_message=None):
         "Content-Type": "application/json",
         "Authorization": f"Bearer {my_openai_key}"
     }
-
     payload = {
         "model": "gpt-4-vision-preview",
         "messages": [
@@ -49,8 +48,17 @@ def parse_prompt(prompt_file):
     prompt_text = file_content.replace('\n', ' ')
     return prompt_text
 
+def summarizeScreenshot(filepath):
+    ss = config.basedir + 'utils/rewind/screenShots/' + filepath 
+    base64_image = encode_image(ss)
+    prompt_text = parse_prompt("prompts/prompt2.txt")
+    resp = get_image_description(base64_image, prompt_text)
+    with open('resp3.json', 'w') as f: 
+        f.write(json.dumps(resp))
+    return resp["choices"][0]["message"]["content"]
+
 if __name__ == "__main__":
-    ss = config.basedir + 'screenshots/image3.png'
+    ss = config.basedir + 'utils/rewind/screenShots/' + 'image.png' # change image file here
     base64_image = encode_image(ss)
     prompt_text = parse_prompt("prompts/prompt2.txt")
     resp = get_image_description(base64_image, prompt_text)
