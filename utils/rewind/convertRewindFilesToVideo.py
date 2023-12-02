@@ -3,13 +3,19 @@ import ffmpeg
 from datetime import datetime
 from pathlib import Path
 
+rewindDir = os.path.dirname(os.path.realpath(__file__))
+
+
 def convert_rewind_files_to_video(date_str):
   # Cleanup and creation
-  if os.path.exists('./videos') == False:
-      os.makedirs('./videos')
+  videos_folder_loc = os.path.join(rewindDir, 'videos')
+  videos_temp_text_folder_loc = os.path.join(videos_folder_loc, 'tempText')
 
-  if os.path.exists('./videos/tempText') == False:
-    os.makedirs('./videos/tempText')
+  if os.path.exists(videos_folder_loc) == False:
+      os.makedirs(videos_folder_loc)
+
+  if os.path.exists(videos_temp_text_folder_loc) == False:
+    os.makedirs(videos_temp_text_folder_loc)
 
 
   ROOT_DIR = os.environ['HOME'] + '/Library/Application Support/com.memoryvault.MemoryVault'
@@ -35,16 +41,16 @@ def convert_rewind_files_to_video(date_str):
     # Convert the creation time to a human-readable format
     created_date = datetime.fromtimestamp(created_at).strftime("%Y-%m-%d-%H-%M-%S")
 
-    with open('./videos/tempText/' + created_date + '.txt', 'w') as f:
+    with open(videos_temp_text_folder_loc + '/'+ created_date + '.txt', 'w') as f:
       f.write('file ' + chunk.replace(' ', '\ '))
 
 
-  temp_text_files = os.listdir('./videos/tempText')
+  temp_text_files = os.listdir(videos_temp_text_folder_loc)
 
   # Concatenate videos from text files
   for text_file in temp_text_files:
     formated_text_file = Path(text_file).stem
-    output_file = './videos/' + formated_text_file +'.mp4'
-    ffmpeg.input('./videos/tempText/' + text_file, format='concat', safe=0).output(output_file).run()
+    output_file = videos_folder_loc + '/' + formated_text_file +'.mp4'
+    ffmpeg.input(videos_temp_text_folder_loc + '/' + text_file, format='concat', safe=0).output(output_file).run()
 
 __all__ = [convert_rewind_files_to_video]
