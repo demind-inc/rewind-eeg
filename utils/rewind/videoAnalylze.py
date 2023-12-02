@@ -18,7 +18,7 @@ def show_image_target_frame(video_file_path,file_name,target_frame):
   cap.set(cv2.CAP_PROP_POS_FRAMES, target_frame)
   ret, frame = cap.read()
 
-  screenshot_filename = f"./screenShots/{file_name}_frame_{target_frame}.png"
+  screenshot_filename = f"./screenShots/{file_name}.png"
   print(screenshot_filename)
   cv2.imwrite(screenshot_filename, frame)
 
