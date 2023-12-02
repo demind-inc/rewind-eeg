@@ -1,6 +1,9 @@
+import os
 import cv2
 from datetime import datetime
 from fileHelper import get_video_file_and_start_end_time
+
+rewindDir = os.path.dirname(os.path.realpath(__file__))
 
 # Get the target frame number
 def get_target_video_frame(video_file_path, target_date, start_time, end_time):
@@ -18,8 +21,7 @@ def show_image_target_frame(video_file_path,file_name,target_frame):
   cap.set(cv2.CAP_PROP_POS_FRAMES, target_frame)
   ret, frame = cap.read()
 
-  screenshot_filename = f"./screenShots/{file_name}.png"
-  print(screenshot_filename)
+  screenshot_filename = f"{rewindDir}/screenShots/{file_name}.png"
   cv2.imwrite(screenshot_filename, frame)
 
   cap.release()

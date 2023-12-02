@@ -2,6 +2,9 @@ import os
 from datetime import datetime
 from pathlib import Path
 
+rewindDir = os.path.dirname(os.path.realpath(__file__))
+videos_folder_loc = os.path.join(rewindDir, 'videos')
+
 # find the two closest dates to the target date
 def find_closest_dates(target_time, dates):
     start_closest_date =  min([date for date in dates if date < target_time], key=lambda dt: abs(dt - target_time))
@@ -11,7 +14,7 @@ def find_closest_dates(target_time, dates):
 
 # Get the video file path between the two dates
 def get_video_file_date_between_time(date_str):
-  video_files = os.listdir('./videos')
+  video_files = os.listdir(videos_folder_loc)
   video_files.remove('tempText')
 
   # Get the list of timestamp of files
@@ -26,7 +29,7 @@ def get_video_file_date_between_time(date_str):
 def get_video_file_and_start_end_time(date_str):
   [start_closest_date, end_closest_date] = get_video_file_date_between_time(date_str)
 
-  target_video_file_name = './videos' + '/' + end_closest_date.strftime("%Y-%m-%d-%H-%M-%S") + '.mp4'
+  target_video_file_name = videos_folder_loc + '/' + end_closest_date.strftime("%Y-%m-%d-%H-%M-%S") + '.mp4'
 
 
   return start_closest_date, end_closest_date, target_video_file_name,
