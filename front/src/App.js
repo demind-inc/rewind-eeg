@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import ReactFileReader from "react-file-reader";
 import Papa from "papaparse";
-import { Line } from "react-chartjs-2";
+import { Line, getElementAtEvent } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -27,6 +27,8 @@ ChartJS.register(
 
 function App() {
   const [chartData, setChartData] = useState({});
+  const [selectedTimestamp, setSelectedTimestamp] = useState(0);
+  const chartRef = useRef();
 
   const uploadFile = (files) => {
     Papa.parse(files[0], {
@@ -86,6 +88,16 @@ function App() {
     },
   };
 
+  const onClick = (event) => {
+    if (!getElementAtEvent(chartRef.current, event).length) return;
+
+    setSelectedTimestamp(
+      getElementAtEvent(chartRef.current, event)[0]["element"]["$context"][
+        "parsed"
+      ]["x"]
+    );
+  };
+
   return (
     <div className="App">
       <p>Rewind EEG</p>
@@ -95,13 +107,21 @@ function App() {
       <div className="ChartArea">
         {Object.keys(chartData).length ? (
           <>
-            <Line data={chartData} options={options} />
+            <Line
+              ref={chartRef}
+              data={chartData}
+              options={options}
+              onClick={onClick}
+            />
           </>
         ) : (
           <></>
         )}
       </div>
-      <div className="ScreenShotArea"></div>
+      <div className="ScreenShotArea">
+        {/* TODO: replace with screenshot */}
+        {selectedTimestamp ? <div>Timestamp: {selectedTimestamp}</div> : <></>}
+      </div>
     </div>
   );
 }
