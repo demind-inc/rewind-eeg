@@ -49,4 +49,4 @@ def convert_rewind_files_to_video(date_str):
     ffmpeg.input('./videos/tempText/' + text_file, format='concat', safe=0).output(output_file).run()
 
 # [test] Run command
-# convert_rewind_files_to_video('2023-12-01 23:59:59')
+# convert_rewind_files_to_video('2023-12-02 23:59:59')
