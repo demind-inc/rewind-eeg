@@ -3,7 +3,6 @@ import ffmpeg
 from datetime import datetime
 from pathlib import Path
 
-
 def convert_rewind_files_to_video(date_str):
   # Cleanup and creation
   if os.path.exists('./videos') == False:
@@ -48,5 +47,4 @@ def convert_rewind_files_to_video(date_str):
     output_file = './videos/' + formated_text_file +'.mp4'
     ffmpeg.input('./videos/tempText/' + text_file, format='concat', safe=0).output(output_file).run()
 
-# [test] Run command
-# convert_rewind_files_to_video('2023-12-01 23:59:59')
+__all__ = [convert_rewind_files_to_video]
