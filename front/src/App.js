@@ -62,6 +62,8 @@ function App() {
               data: attentionScoresOfNonEmpty,
               fill: false,
               borderColor: "rgba(75,192,192,1)",
+              cubicInterpolationMode: "monotone",
+              pointRadius: 0,
             },
           ],
         });
@@ -119,7 +121,6 @@ function App() {
         )}
       </div>
       <div className="ScreenShotArea">
-        {/* TODO: replace with screenshot */}
         {selectedTimestamp ? <div>Timestamp: {selectedTimestamp}</div> : <></>}
       </div>
     </div>
