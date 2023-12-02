@@ -3,7 +3,6 @@ import ffmpeg
 from datetime import datetime
 from pathlib import Path
 
-
 def convert_rewind_files_to_video(date_str):
   # Cleanup and creation
   if os.path.exists('./videos') == False:

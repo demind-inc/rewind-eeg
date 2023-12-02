@@ -13,12 +13,13 @@ def get_target_video_frame(video_file_path, target_date, start_time, end_time):
   return target_frame
 
 # Show the screen shot of target frame
-def show_image_target_frame(video_file_path, target_frame):
+def show_image_target_frame(video_file_path,file_name,target_frame):
   cap = cv2.VideoCapture(video_file_path)
   cap.set(cv2.CAP_PROP_POS_FRAMES, target_frame)
   ret, frame = cap.read()
 
-  screenshot_filename = f"{video_file_path}frame_{target_frame}.png"
+  screenshot_filename = f"./screenShots/{file_name}_frame_{target_frame}.png"
+  print(screenshot_filename)
   cv2.imwrite(screenshot_filename, frame)
 
   cap.release()
@@ -26,7 +27,7 @@ def show_image_target_frame(video_file_path, target_frame):
 def analyze_video(target_date):
     [start_time, end_time, video_file_path] = get_video_file_and_start_end_time(target_date)
     frame = get_target_video_frame(video_file_path,target_date, start_time, end_time)
-    show_image_target_frame(video_file_path, frame)
+    show_image_target_frame( video_file_path,target_date, frame)
 
-
+analyze_video('2023-12-01 23:59:59')
 __all__ = [analyze_video]
