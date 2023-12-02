@@ -48,7 +48,7 @@ function App() {
           }
         }
         const attentionScoresOfNonEmpty = nonEmptyAttentionIndices.map(
-          (index) => Number(attentionScores[index])
+          (index) => Number(attentionScores[index]) * 100
         );
         const timestampsOfNonEmpty = nonEmptyAttentionIndices.map((index) =>
           parseInt(Number(timestamps[index]))
