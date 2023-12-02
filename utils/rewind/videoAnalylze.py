@@ -29,5 +29,4 @@ def analyze_video(target_date):
     frame = get_target_video_frame(video_file_path,target_date, start_time, end_time)
     show_image_target_frame( video_file_path,target_date, frame)
 
-analyze_video('2023-12-01 23:59:59')
 __all__ = [analyze_video]
