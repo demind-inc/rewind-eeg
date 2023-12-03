@@ -64,7 +64,7 @@ function App() {
               fill: false,
               borderColor: "rgba(75,192,192,1)",
               cubicInterpolationMode: "monotone",
-              pointRadius: 0,
+              pointRadius: 2,
             },
           ],
         });
@@ -122,14 +122,12 @@ function App() {
       )}
       <div className="ChartArea">
         {hasEEGData ? (
-          <>
-            <Line
-              ref={chartRef}
-              data={chartData}
-              options={options}
-              onClick={onClick}
-            />
-          </>
+          <Line
+            ref={chartRef}
+            data={chartData}
+            options={options}
+            onClick={onClick}
+          />
         ) : (
           <></>
         )}
