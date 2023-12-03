@@ -77,15 +77,21 @@ function App() {
         type: "linear",
         position: "bottom",
         title: {
-          display: true,
+          display: false,
           text: "Timestamp",
         },
+        ticks: { display: false },
       },
       y: {
         title: {
           display: true,
           text: "Attention Score",
         },
+      },
+    },
+    plugins: {
+      legend: {
+        display: false,
       },
     },
   };
@@ -106,6 +112,10 @@ function App() {
       <ReactFileReader handleFiles={uploadFile} fileTypes={".csv"}>
         <button className="btn"> Upload EEG Data</button>
       </ReactFileReader>
+      <div className="SummaryArea">
+        This is the summary of your activity. You tend to get distracted when
+        you have coding tasks.
+      </div>
       <div className="ChartArea">
         {Object.keys(chartData).length ? (
           <>
