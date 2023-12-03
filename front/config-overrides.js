@@ -1,10 +1,17 @@
-const { removeModuleScopePlugin } = require("customize-cra");
-
-module.exports = function override(config, env) {
-  if (!config.plugins) {
-    config.plugins = [];
-  }
-  removeModuleScopePlugin()(config);
-
-  return config;
+var path = require("path");
+module.exports = {
+  entry: "./index.js",
+  output: {
+    path: path.join(__dirname, "static"),
+    filename: "bundle.js",
+  },
+  module: {
+    loaders: [
+      { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
+      { test: /\.json$/, loader: "json-loader" },
+    ],
+  },
+  node: {
+    fs: "empty",
+  },
 };
