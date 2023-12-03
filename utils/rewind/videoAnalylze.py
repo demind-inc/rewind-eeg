@@ -1,7 +1,7 @@
 import os
 import cv2
 from datetime import datetime
-from fileHelper import get_video_file_and_start_end_time
+from utils.rewind.fileHelper import get_video_file_and_start_end_time
 
 rewindDir = os.path.dirname(os.path.realpath(__file__))
 
@@ -30,5 +30,6 @@ def analyze_video(target_date):
     [start_time, end_time, video_file_path] = get_video_file_and_start_end_time(target_date)
     frame = get_target_video_frame(video_file_path,target_date, start_time, end_time)
     show_image_target_frame( video_file_path,target_date, frame)
+    return target_date
 
 __all__ = [analyze_video]

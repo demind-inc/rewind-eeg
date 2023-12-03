@@ -15,14 +15,14 @@ def find_attention_points(csv_data, convert=True, nums=10):
     data = load_csv(csv_data)
     attention_dataset = get_attention(data)
 
-    peak_ts = find_attention_peaks(attention_dataset, return_ts=True)
-    trough_ts = find_attention_peaks(attention_dataset, find_troughs=True, return_ts=True)
+    peaks = find_attention_peaks(attention_dataset, return_ts=False)
+    troughs = find_attention_peaks(attention_dataset, find_troughs=True, return_ts=False)
 
-    if convert:
-        peak_ts = [convert_timestamp_to_nyt(ts) for ts in peak_ts]
-        trough_ts = [convert_timestamp_to_nyt(ts) for ts in trough_ts]
+    # if convert:
+    #     peak_ts = [convert_timestamp_to_nyt(ts) for ts in peak_ts]
+    #     trough_ts = [convert_timestamp_to_nyt(ts) for ts in trough_ts]
 
-    return peak_ts, trough_ts
+    return peaks, troughs
 
 def convert_timestamp_to_nyt(timestamp, tz='America/New_York'):
     dt_utc = datetime.utcfromtimestamp(timestamp)

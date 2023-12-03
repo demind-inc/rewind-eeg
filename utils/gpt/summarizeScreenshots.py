@@ -3,7 +3,7 @@ import requests
 import base64
 import json
 
-import config
+import utils.gpt.config as config
 
 my_openai_key = config.api_key
 
@@ -49,18 +49,26 @@ def parse_prompt(prompt_file):
     return prompt_text
 
 def summarizeScreenshot(filepath):
-    ss = config.basedir + 'utils/rewind/screenShots/' + filepath 
+    ss = filepath 
     base64_image = encode_image(ss)
-    prompt_text = parse_prompt("prompts/prompt2.txt")
+    prompt_text = parse_prompt("utils/gpt/prompts/prompt2.txt")
     resp = get_image_description(base64_image, prompt_text)
     with open('resp3.json', 'w') as f: 
         f.write(json.dumps(resp))
     return resp["choices"][0]["message"]["content"]
 
+def validateJSON(jsonData):
+    try:
+        d = json.loads(jsonData)
+        return d["task"]
+    except ValueError as err:
+        return False
+    return True
+
 if __name__ == "__main__":
     ss = config.basedir + 'utils/rewind/screenShots/' + 'image.png' # change image file here
     base64_image = encode_image(ss)
-    prompt_text = parse_prompt("prompts/prompt2.txt")
+    prompt_text = parse_prompt("utils/gpt/prompts/prompt2.txt")
     resp = get_image_description(base64_image, prompt_text)
     with open('resp3.json', 'w') as f: 
         f.write(json.dumps(resp))
