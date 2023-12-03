@@ -22,6 +22,10 @@
 .SummaryArea {
   text-align: left;
   margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex:1;
 }
 
 .UploadBtn{
@@ -44,16 +48,23 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 30px;
+  width: 60vw;
+  margin: auto;
 }
 
 .ScreenshotArea {
   display: flex;
   justify-content: center;
   align-items: left;
-  gap: 10px;
-  flex-direction: column;
+  gap: 30px;
+  flex-direction: row;
+  width: 60vw;
+  margin: auto;
+
 }
 
 .ScreenshotImage {
-  height: 50vh;
+  width: 30vw;
+    margin: auto;
+    flex: 1;
 }
