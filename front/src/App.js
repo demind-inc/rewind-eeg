@@ -96,6 +96,8 @@ function App() {
     },
   };
 
+  const hasEEGData = !!Object.keys(chartData).length;
+
   const onClick = (event) => {
     if (!getElementAtEvent(chartRef.current, event).length) return;
 
@@ -109,15 +111,17 @@ function App() {
   return (
     <div className="App">
       <div className="Title">Rewind EEG</div>
-      <ReactFileReader handleFiles={uploadFile} fileTypes={".csv"}>
-        <button className="btn"> Upload EEG Data</button>
-      </ReactFileReader>
+      {!hasEEGData && (
+        <ReactFileReader handleFiles={uploadFile} fileTypes={".csv"}>
+          <div className="UploadBtn"> Upload EEG Data</div>
+        </ReactFileReader>
+      )}
       <div className="SummaryArea">
         This is the summary of your activity. You tend to get distracted when
         you have coding tasks.
       </div>
       <div className="ChartArea">
-        {Object.keys(chartData).length ? (
+        {hasEEGData ? (
           <>
             <Line
               ref={chartRef}

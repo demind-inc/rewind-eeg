@@ -1,6 +1,9 @@
 .App {
   text-align: flex-start;
   padding: 30px 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .Title {
@@ -9,9 +12,23 @@
 }
 
 .SummaryArea {
-  display: flex;
-  justify-content: center;
+  text-align: left;
   margin-bottom: 30px;
+}
+
+.UploadBtn{
+  background: white;
+  padding: 10px;
+  width: 130px;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  border: solid 1px green;
+  border-radius: 5px;
+
+  &:hover{
+    cursor: pointer;
+  }
 }
 
 .ChartArea {
