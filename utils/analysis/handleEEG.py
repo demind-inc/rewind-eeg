@@ -24,6 +24,13 @@ def find_attention_points(csv_data, convert=True, nums=10):
 
     return peaks, troughs
 
+def get_all_timestamps(csv_data):
+    data = load_csv(csv_data)
+    attention_dataset = get_attention(data)
+
+    timestamps = [convert_timestamp_to_nyt(ts) for ts in attention_dataset['Timestamp']]
+    return timestamps
+
 def convert_timestamp_to_nyt(timestamp, tz='America/New_York'):
     dt_utc = datetime.utcfromtimestamp(timestamp)
     new_york_tz = pytz.timezone(tz)
