@@ -1,8 +1,12 @@
+import os
+
 from utils.rewind.videoAnalylze import analyze_video
 from utils.analysis import handleEEG
 from utils.gpt import summarizeScreenshots
 import utils.gpt.config as config
 from openai import OpenAI
+
+current_dir = os.path.dirname(os.path.realpath(__file__))
 
 def generate_summary(peak_summaries, trough_summaries):
     client = OpenAI(
@@ -53,12 +57,10 @@ if __name__ == "__main__":
     # a = ['software development', 'email communication', 'slack response', 'youtube', 'software development']
     # b = ['zoom meeting', 'zoom meeting', 'writing paper', 'reading articles', 'citations']
     # output = generate_summary(a, b)
-    
+
     # output gpt summary to an output.txt
-    with open('output.txt', 'w') as file:
+    target_dir = os.path.join(current_dir, "output", "summary")
+    target_file = os.path.join(target_dir, 'output.txt')
+    with open(target_file, 'w') as file:
         file.write(output)
     print(output)
-
-
-
-    
