@@ -11,6 +11,14 @@
   font-weight: 800;
 }
 
+.Timestamp{
+  text-align: left;
+  padding: 5px;
+  width: 160px;
+  border: solid 1px black;
+  border-radius: 5px;
+}
+
 .SummaryArea {
   text-align: left;
   margin-bottom: 30px;
@@ -41,7 +49,7 @@
 .ScreenshotArea {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: left;
   gap: 10px;
   flex-direction: column;
 }
