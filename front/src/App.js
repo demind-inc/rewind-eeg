@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import ReactFileReader from "react-file-reader";
 import Papa from "papaparse";
+import dayjs from "dayjs";
 import { Line, getElementAtEvent } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -50,8 +51,8 @@ function App() {
         const attentionScoresOfNonEmpty = nonEmptyAttentionIndices.map(
           (index) => Number(attentionScores[index]) * 100
         );
-        const timestampsOfNonEmpty = nonEmptyAttentionIndices.map((index) =>
-          parseInt(Number(timestamps[index]))
+        const timestampsOfNonEmpty = nonEmptyAttentionIndices.map(
+          (index) => parseInt(Number(timestamps[index])) * 1000
         );
 
         setChartData({
@@ -77,9 +78,10 @@ function App() {
         type: "linear",
         position: "bottom",
         title: {
-          display: true,
+          display: false,
           text: "Timestamp",
         },
+        ticks: { display: false },
       },
       y: {
         title: {
@@ -88,7 +90,14 @@ function App() {
         },
       },
     },
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
   };
+
+  const hasEEGData = !!Object.keys(chartData).length;
 
   const onClick = (event) => {
     if (!getElementAtEvent(chartRef.current, event).length) return;
@@ -100,14 +109,19 @@ function App() {
     );
   };
 
+  const fileName = dayjs(selectedTimestamp).format("YYYY-MM-DD HH:mm:ss");
+  const hasSelectedTimestamp = selectedTimestamp !== 0;
+
   return (
     <div className="App">
-      <p>Rewind EEG</p>
-      <ReactFileReader handleFiles={uploadFile} fileTypes={".csv"}>
-        <button className="btn"> Upload EEG Data</button>
-      </ReactFileReader>
+      <div className="Title">Rewind EEG</div>
+      {!hasEEGData && (
+        <ReactFileReader handleFiles={uploadFile} fileTypes={".csv"}>
+          <div className="UploadBtn"> Upload EEG Data</div>
+        </ReactFileReader>
+      )}
       <div className="ChartArea">
-        {Object.keys(chartData).length ? (
+        {hasEEGData ? (
           <>
             <Line
               ref={chartRef}
@@ -120,9 +134,20 @@ function App() {
           <></>
         )}
       </div>
-      <div className="ScreenShotArea">
-        {selectedTimestamp ? <div>Timestamp: {selectedTimestamp}</div> : <></>}
-      </div>
+      {hasSelectedTimestamp && (
+        <div className="ScreenshotArea">
+          <img
+            className="ScreenshotImage"
+            src={`/images/${fileName}.png`}
+            alt="screenshot"
+          />
+          <div className="SummaryArea">
+            This is the summary of your activity. You tend to get distracted
+            when you have coding tasks.
+          </div>
+          {selectedTimestamp && <div>{fileName}</div>}
+        </div>
+      )}
     </div>
   );
 }

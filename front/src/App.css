@@ -1,8 +1,51 @@
 .App {
   text-align: flex-start;
-  padding: 30px;
+  padding: 30px 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.Title {
+  font-size: xx-large;
+  font-weight: 800;
+}
+
+.SummaryArea {
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.UploadBtn{
+  background: white;
+  padding: 10px;
+  width: 130px;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  border: solid 1px green;
+  border-radius: 5px;
+
+  &:hover{
+    cursor: pointer;
+  }
 }
 
 .ChartArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.ScreenshotArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.ScreenshotImage {
   height: 50vh;
 }
