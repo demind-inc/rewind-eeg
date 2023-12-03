@@ -14,7 +14,7 @@ def generate_summary(peak_summaries, trough_summaries):
             {"role": "user", "content": f"A user has high attention during {peak_summaries} and low attention during {trough_summaries}. Can you generate an actionable guide for how the user can maximize their productivity."}
         ]
     )
-    response = completion.choices[0].message
+    response = completion.choices[0].message.content
     return response
 
 if __name__ == "__main__":
@@ -48,12 +48,15 @@ if __name__ == "__main__":
         else:
             trough_summary.append('no task')
     print(trough_summary)
+    output = generate_summary(peak_summary, trough_summary)
 
     # a = ['software development', 'email communication', 'slack response', 'youtube', 'software development']
     # b = ['zoom meeting', 'zoom meeting', 'writing paper', 'reading articles', 'citations']
     # output = generate_summary(a, b)
-
-    output = generate_summary(peak_summary, trough_summary)
+    
+    # output gpt summary to an output.txt
+    with open('output.txt', 'w') as file:
+        file.write(output)
     print(output)
 
 
