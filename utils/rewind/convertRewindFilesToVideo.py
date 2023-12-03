@@ -53,4 +53,9 @@ def convert_rewind_files_to_video(date_str):
     output_file = videos_folder_loc + '/' + formated_text_file +'.mp4'
     ffmpeg.input(videos_temp_text_folder_loc + '/' + text_file, format='concat', safe=0).output(output_file).run()
 
-__all__ = [convert_rewind_files_to_video]
+__all__ = ['convert_rewind_files_to_video']
+
+
+if __name__ == "__main__":
+  date_str = input("Enter the date (YYYY-MM-DD HH:MM:SS): ")
+  convert_rewind_files_to_video(date_str)
