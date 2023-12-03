@@ -5,3 +5,4 @@ utils/rewind/screenShots/*.png
 
 utils/gpt/config.py
 data/*.csv
+output
