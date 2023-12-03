@@ -9,6 +9,12 @@ Link to presentation: https://docs.google.com/presentation/d/1pRiOrAapx8Ue-Sz_Hw
 
 Link to github: https://github.com/demind-inc/rewind-eeg
 
+### Demo
+
+![App Home Screen](/demo/app_home.png)
+
+[Demo Video Link](https://drive.google.com/file/d/19OMNPED5wADM1fgzra7GScwKk630bISF/view?usp=sharing)
+
 ### Setup
 
 #### Pre-requisite
