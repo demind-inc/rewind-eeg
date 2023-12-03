@@ -62,3 +62,7 @@ npm run start
 ```
 
 Run your web app.
+
+### How it works
+
+![Rewind](/demo/architecture.png)
