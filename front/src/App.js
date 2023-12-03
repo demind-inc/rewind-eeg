@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import ReactFileReader from "react-file-reader";
 import Papa from "papaparse";
+import dayjs from "dayjs";
 import { Line, getElementAtEvent } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -50,8 +51,8 @@ function App() {
         const attentionScoresOfNonEmpty = nonEmptyAttentionIndices.map(
           (index) => Number(attentionScores[index]) * 100
         );
-        const timestampsOfNonEmpty = nonEmptyAttentionIndices.map((index) =>
-          parseInt(Number(timestamps[index]))
+        const timestampsOfNonEmpty = nonEmptyAttentionIndices.map(
+          (index) => parseInt(Number(timestamps[index])) * 1000
         );
 
         setChartData({
@@ -108,6 +109,9 @@ function App() {
     );
   };
 
+  const fileName = dayjs(selectedTimestamp).format("YYYY-MM-DD HH:mm:ss");
+  const hasSelectedTimestamp = selectedTimestamp !== 0;
+
   return (
     <div className="App">
       <div className="Title">Rewind EEG</div>
@@ -116,10 +120,6 @@ function App() {
           <div className="UploadBtn"> Upload EEG Data</div>
         </ReactFileReader>
       )}
-      <div className="SummaryArea">
-        This is the summary of your activity. You tend to get distracted when
-        you have coding tasks.
-      </div>
       <div className="ChartArea">
         {hasEEGData ? (
           <>
@@ -134,14 +134,20 @@ function App() {
           <></>
         )}
       </div>
-      <div className="ScreenshotArea">
-        {selectedTimestamp ? <div>Timestamp: {selectedTimestamp}</div> : <></>}
-        <img
-          className="ScreenshotImage"
-          src="/images/2023-12-02 10:11:46.png"
-          alt="screenshot"
-        />
-      </div>
+      {hasSelectedTimestamp && (
+        <div className="ScreenshotArea">
+          <img
+            className="ScreenshotImage"
+            src={`/images/${fileName}.png`}
+            alt="screenshot"
+          />
+          <div className="SummaryArea">
+            This is the summary of your activity. You tend to get distracted
+            when you have coding tasks.
+          </div>
+          {selectedTimestamp && <div>{fileName}</div>}
+        </div>
+      )}
     </div>
   );
 }
