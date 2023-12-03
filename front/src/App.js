@@ -102,7 +102,7 @@ function App() {
 
   return (
     <div className="App">
-      <p>Rewind EEG</p>
+      <div className="Title">Rewind EEG</div>
       <ReactFileReader handleFiles={uploadFile} fileTypes={".csv"}>
         <button className="btn"> Upload EEG Data</button>
       </ReactFileReader>
@@ -120,8 +120,13 @@ function App() {
           <></>
         )}
       </div>
-      <div className="ScreenShotArea">
+      <div className="ScreenshotArea">
         {selectedTimestamp ? <div>Timestamp: {selectedTimestamp}</div> : <></>}
+        <img
+          className="ScreenshotImage"
+          src="/images/2023-12-02 10:11:46.png"
+          alt="screenshot"
+        />
       </div>
     </div>
   );

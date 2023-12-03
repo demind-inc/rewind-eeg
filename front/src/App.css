@@ -3,6 +3,24 @@
   padding: 30px;
 }
 
+.Title {
+  font-size: xx-large;
+  font-weight: 800;
+}
+
 .ChartArea {
+  display: flex;
+  height: 40vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.ScreenshotArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ScreenshotImage {
   height: 50vh;
 }
